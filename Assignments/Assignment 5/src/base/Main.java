@@ -21,6 +21,8 @@ public class Main {
      * Pretzels are $2 for 1
      * Lemonade is $8 for 1
      */
+    static int price_lemonade = 8;
+    static int price_pretzel = 2;
     static int lemonades_available = 43;
     static int pretzels_available = 60;
     static double cash = 1500.0;
@@ -29,11 +31,34 @@ public class Main {
 
     public static void main(String[] args) {
         //	Replace this with your dry inventory function!
-        wet_inventory();
+        //wet_inventory();
+        dry_inventory();
     }
 
     static void dry_inventory() {
-        // Your DRY Solution goes here!
+        int[] pretzels_sold_array = {4, 2, 3, 1, 0, 0, 2, 10, 6, 0, 1, 0, 2, 6, 9};
+        int[] lemonade_sold_array = {1, 3, 0, 2, 6, 4, 0, 8, 0, 1, 0, 7, 0, 3, 2};
+        int[] tips_array = {4, 0, 0, 0, 10, 5, 0, 10, 0, 0, 0, 4, 0, 0, 3};
+        int sum1, sum2, sum3;
+        sum1 = sum2 = sum3 = 0;
+        for (int i: pretzels_sold_array){
+            sum1 += i;
+        }
+        for (int i: lemonade_sold_array){
+            sum2 += i;
+        }
+        for (int i: tips_array){
+            sum3 += i;
+        }
+        lemonades_available -= sum2;
+        pretzels_available -= sum1;
+        cash += sum1*price_pretzel+sum2*price_lemonade;
+        tips += sum3;
+        System.out.println("Results for the hour!");
+        System.out.println("Lemonades Inventory: " + lemonades_available);
+        System.out.println("Pretzels Inventory: " + pretzels_available);
+        System.out.println("Cash: " + cash);
+        System.out.println("Tips: " + tips);
     }
 
     static void wet_inventory() {
