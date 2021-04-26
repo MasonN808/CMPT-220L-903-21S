@@ -1,0 +1,31 @@
+import java.util.ArrayList;
+
+class ListItem{
+    private static ArrayList<Integer> frame = new ArrayList<Integer>();
+    private static int value;
+
+    public ListItem(int value){
+        this.value = value;
+        this.frame.add(this.value);
+    }
+
+    public static int getListItem(){
+        return value;
+    }
+    public static ArrayList add(ListItem listItem_new){
+        frame.add(listItem_new.getListItem());
+        return frame;
+    }
+
+
+
+
+
+    public static void main(String args []){
+        ListItem item_1 = new ListItem(1);
+        ListItem item_2 = new ListItem(2);
+        ListItem item_3 = new ListItem(3);
+        ListItem item_4 = new ListItem(4);
+        item_1.add(item_2);
+    }
+}
