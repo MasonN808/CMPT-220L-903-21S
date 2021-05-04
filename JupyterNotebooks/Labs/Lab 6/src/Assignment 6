@@ -1,23 +1,27 @@
-class ListItem{
-    static int value;
-    static ListItem newItem;
+public class ListItem {
+    int value;
+    ListItem nextItem;
 
     public ListItem(int value){
-        this(null);
         this.value = value;
+        this.nextItem = null;
     }
-    public ListItem(ListItem newItem){
-    }
+
 
 
 
 
     public static void main(String args []){
         ListItem item_1 = new ListItem(1);
-        ListItem item_2 = new ListItem(item_1);
-        ListItem item_3 = new ListItem(item_2);
-        ListItem item_4 = new ListItem(item_3);
-        ListItem item_comb = new ListItem(item_4);
+        ListItem item_2 = new ListItem(2);
+        ListItem item_3 = new ListItem(3);
+        ListItem item_4 = new ListItem(4);
+        ListItem item_5 = new ListItem(5);
+
+        item_1.nextItem = item_2;
+        item_2.nextItem = item_3;
+        item_3.nextItem = item_4;
+        item_4.nextItem = item_5;
 
     }
 }
