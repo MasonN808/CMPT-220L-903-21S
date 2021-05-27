@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Binary_Search_Tree{
     //initialize variables
-    Stack<Node> nodes;
+    ArrayList<Integer> nodes1 = new ArrayList<Integer>();
     Node root;
     //create constructor
     public Binary_Search_Tree(){
@@ -87,8 +88,27 @@ public class Binary_Search_Tree{
             return cur;
         }
     }
+
+
+    public int find_NLargest(Node root, int n){
+        //reindex
+        n = n-1;
+        if(n > this.nodes1.size() || n < 0 || root == null){
+            //return -1 if n not in index or root is null
+            return -1;
+        }
+        else{
+            //not that the inOrder method must be run before the find_NLargest method
+            //sort this.nodes1 in descending order
+            Collections.sort(this.nodes1,Collections.reverseOrder());
+            //get the nth index of this.nodes1
+            int temp = this.nodes1.get(n);
+            return temp;
+        }
+    }
+
     //does left, then root, then right
-    public static void inOrder(Node root){
+    public void inOrder(Node root){
         if(root == null){
             return;
         }
@@ -109,13 +129,13 @@ public class Binary_Search_Tree{
                 Node temp_node = nodes.pop();
                 //output the previous node data
                 System.out.print(temp_node.data+ " ");
+                //append data to arrayList for reference
+                this.nodes1.add(temp_node.data);
                 //go to the right child instead
                 cur = temp_node.right;
             }
         }
-        System.out.println();
     }
-
 
     //does root, then left, then right
     public static void preOrder(Node root){
@@ -141,36 +161,37 @@ public class Binary_Search_Tree{
                 nodes.push(cur.left);
             }
         }
-        System.out.println();
+    }
+
+    public static void printStack(Stack<Node> s){
+        if(s.empty()){
+            return;
+        }
+        System.out.print(s.pop().data + " ");
+        printStack(s);
     }
 
     //does left, then right, then root
     public static void postOrder(Node root){
+        Stack<Node> nodes1 = new Stack<Node>();
+        Stack<Node> nodes2 = new Stack<Node>();
         if(root == null){
             return;
         }
-        Node cur = root;
-        Stack<Node> nodes = new Stack<Node>();
-        Stack<Node> nodes1 = new Stack<Node>();
-        nodes.push(cur);
-        boolean bool = true;
-        Node prev;
-        while(bool){
-            if(cur !=null)
-                if(cur.right != null) {
-                    nodes.push(cur.right);
-                    nodes1.push(cur.right);
-                    cur = cur.right;
-                }
-                else if(cur.left != null) {
-                    nodes.push(cur.left);
-                    nodes1.push(cur.left);
-                    cur = cur.left;
-                }
-                else{
-                    cur = nodes.pop();
-                }
+        nodes1.push(root);
+
+        while(nodes1.size() != 0){
+            Node cur = nodes1.pop();
+            nodes2.push(cur);
+            if(cur.left != null){
+                nodes1.push(cur.left);
+            }
+            else if(cur.right != null){
+                nodes1.push(cur.right);
+            }
+            printStack(nodes2);
         }
+
     }
 
     //prints the elements in the level of the BST
@@ -185,8 +206,26 @@ public class Binary_Search_Tree{
         else{
             System.out.print(root.data + " ");
         }
-
     }
+
+
+    public static void getLevel_atIndex(Node root, int level, int index) {
+        if (root == null) {
+            return;
+        }
+        ArrayList<Integer> nodes = new ArrayList<Integer>();
+        if (level > 1) {
+            getLevel(root.left, level - 1);
+            getLevel(root.right, level - 1);
+        } else {
+            nodes.add(root.data);
+        }
+
+        System.out.println(nodes.toString());
+    }
+
+
+
     public static void breadthFirst(Node root){
         if(root == null) {
             return;
@@ -194,18 +233,24 @@ public class Binary_Search_Tree{
         for(int i = 1; i <= find_height(root); i++){
             getLevel(root, i);
         }
-        System.out.println();
     }
 
     public static void depthFirst(Node root){
         if(root == null) {
             return;
         }
-        .
-        .
+        else{
+            if(root.left != null){
 
+            }
+        }
     }
 
+
+
+    public static void deleteNode(Node n){
+
+    }
 
     public static void main(String args[]){
         Binary_Search_Tree bst = new Binary_Search_Tree();
@@ -219,10 +264,22 @@ public class Binary_Search_Tree{
 
         System.out.println("--------------------");
         System.out.println("Find element in BST: ");
-        find_element(root, 4);
+        System.out.println(find_element(root, 5));
+        System.out.println("--------------------");
+        System.out.println("BST in Inorder: ");
+        bst.inOrder(root);
+        System.out.println();
+        System.out.println("--------------------");
+        System.out.println("BST in Preorder: ");
+        bst.preOrder(root);
+        System.out.println();
+        System.out.println("--------------------");
+        System.out.println("BST in Postorder: ");
+        bst.postOrder(root);
+        System.out.println();
         System.out.println("--------------------");
         System.out.println("Find height of BST: ");
-        System.out.println(find_height(root));
+        System.out.println(bst.find_height(root));
         System.out.println("--------------------");
         System.out.println("Find smallest element in BST: ");
         System.out.println(bst.find_smallest(root).data);
@@ -230,23 +287,19 @@ public class Binary_Search_Tree{
         System.out.println("Find largest element in BST: ");
         System.out.println(bst.find_largest(root).data);
         System.out.println("--------------------");
-        System.out.println("BST in Inorder: ");
-        bst.inOrder(root);
-        System.out.println("--------------------");
-        System.out.println("BST in Preorder: ");
-        bst.preOrder(root);
-        //System.out.println("--------------------");
-        //System.out.println("BST in Postorder: ");
-        //bst.postOrder(root);
+        System.out.println("Find Nth largest element in BST: ");
+        System.out.println(bst.find_NLargest(root, 2));
         System.out.println("--------------------");
         System.out.println("Get level: ");
         bst.getLevel(root, 2);
+        System.out.println();
         System.out.println("--------------------");
         System.out.println("Breadth First Search: ");
         bst.breadthFirst(root);
+        System.out.println();
         System.out.println("--------------------");
-        System.out.println("Depth First Search: ");
-        bst.depthFirst(root);
+        //System.out.println("Depth First Search: ");
+        //bst.depthFirst(root);
     }
 }
 
