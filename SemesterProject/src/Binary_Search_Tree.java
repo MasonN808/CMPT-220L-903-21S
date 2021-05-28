@@ -1,6 +1,3 @@
-
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
@@ -327,12 +324,14 @@ public class Binary_Search_Tree{
 
 
     /**
-     * Gets the nodes' elements on the specified level
+     * deletes the specified node n
      * @param  root  the root of the Binary Search Tree
      * @param  n  the node to be removed
      * @return      the Binary Search Tree after deletion of node n
      */
     public void deleteNode(Node root, Node n){
+        Node parent = null;
+        Node cur = root;
         //check if root is in BST
         if(root == null){
             return;
@@ -343,7 +342,38 @@ public class Binary_Search_Tree{
                 return;
             }
         }
-        //if()
+        //assign parent and cur accordingly to the node to be deleted
+        while(cur != null && cur.data != n.data){
+
+            parent = cur;
+            if(n.data < cur.data){
+                cur = cur.left;
+            }
+            else{
+                cur = cur.right;
+            }
+        }
+        //execute if node has no children
+        if(cur.left == null && cur.right == null){
+            if (cur!= root) {
+                if (parent.left == cur) {
+                    parent.left = null;
+                } else {
+                    parent.right = null;
+                }
+            }
+            else{
+                root = null;
+            }
+        }
+        //Execute if node has two children
+        else if(cur.left != null && cur.right != null){
+            //couldn't get this to work
+        }
+        //Execute if the node has exactly one child
+        else{
+            //couldn't get this to work
+        }
     }
 
     public static void main(String args[]){
