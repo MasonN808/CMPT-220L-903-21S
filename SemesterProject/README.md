@@ -2,7 +2,16 @@
 The Binary Search Tree class allows the user to add nodes to the tree, manipulate its structure, delete nodes from the tree,
 retrieve its height, and etc.
 
-##Usage
+##Node Class:
+````
+Node n = new Node();
+
+n.left => left child
+
+n.right => right child
+````
+
+##Binary Search Tree Class
 ````
 Binary_Search_Tree BST = new Binary_Search_Tree();
 
@@ -30,5 +39,16 @@ BST.getLevel(Node root, int level);
 //prints the list of nodes.data values using in-order search
 BST.inOrder(Node root);
 
+//prints the list of nodes.data values using pre-order search
+BST.preOrder(Node root);
 
+//printst the lsit of nodes.data values using post-oder search
+BST.postOrder(Node root);
+
+//prints list of nodes using breadth-first search
+BST.breadthFirst(Node root);
+
+//prints list of nodes using depth-first search
+BST.depthFirst(Node root);
 ````
+
