@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class Binary_Search_Tree{
     //initialize variables
-    ArrayList<Integer> nodes1 = new ArrayList<Integer>();
+    ArrayList<Integer> nodes1 = new ArrayList<>();
     Node root;
     //create constructor
     public Binary_Search_Tree(){
@@ -24,8 +24,7 @@ public class Binary_Search_Tree{
     public Node add(Node root, int new_data) {
         //check root exists
         if (root == null) {
-            Node new_node = new Node(new_data);
-            root = new_node;
+            root = new Node(new_data);
             //make root the root
             return root;
         }
@@ -33,7 +32,7 @@ public class Binary_Search_Tree{
         if (root.data > new_data){
             root.left = add(root.left, new_data);
         }
-        else if (root.data <= new_data){
+        else if (root.data < new_data){
             root.right = add(root.right, new_data);
         }
         return root;
@@ -137,7 +136,7 @@ public class Binary_Search_Tree{
         }
         //reindex
         n = n-1;
-        if(n > this.nodes1.size() || n < 0 || root == null){
+        if(n > this.nodes1.size() || n < 0){
             //return -1 if n not in index or root is null
             return -1;
         }
@@ -146,15 +145,13 @@ public class Binary_Search_Tree{
             //sort this.nodes1 in descending order
             Collections.sort(this.nodes1,Collections.reverseOrder());
             //get the nth index of this.nodes1
-            int temp = this.nodes1.get(n);
-            return temp;
+            return this.nodes1.get(n);
         }
     }
 
     /**
      * Uses the in-order search method to search through all the nodes in the Binary Search Tree
      * @param  root  the root of the Binary Search Tree
-     * @return      the printed elements using in-order
      */
     //does left, then root, then right
     public void inOrder(Node root){
@@ -163,9 +160,9 @@ public class Binary_Search_Tree{
         }
 
         Node cur = root;
-        Stack<Node> nodes = new Stack<Node>();
+        Stack<Node> nodes = new Stack<>();
         //terminate when no more nodes to run through
-        while(nodes.size() != 0 || cur != null){
+        while(!nodes.isEmpty() || cur != null){
             //check if current node is null
             if(cur!= null){
                 //push the current node to stack
@@ -175,13 +172,13 @@ public class Binary_Search_Tree{
             }
             else{
                 //if current node is null, pop previous node from the stack
-                Node temp_node = nodes.pop();
+                Node temp = nodes.pop();
                 //output the previous node data
-                System.out.print(temp_node.data+ " ");
+                System.out.print(temp.data+ " ");
                 //append data to arrayList for reference
-                this.nodes1.add(temp_node.data);
+                this.nodes1.add(temp.data);
                 //go to the right child instead
-                cur = temp_node.right;
+                cur = temp.right;
             }
         }
     }
@@ -189,7 +186,6 @@ public class Binary_Search_Tree{
     /**
      * Uses the pre-order search method to search through all the nodes in the Binary Search Tree
      * @param  root  the root of the Binary Search Tree
-     * @return      the printed elements using pre-order
      */
     //does root, then left, then right
     public static void preOrder(Node root){
@@ -197,10 +193,10 @@ public class Binary_Search_Tree{
             return;
         }
 
-        Stack<Node> nodes = new Stack<Node>();
+        Stack<Node> nodes = new Stack<>();
         nodes.push(root);
         //terminate when no more nodes to run through
-        while(nodes.size() != 0){
+        while(!nodes.isEmpty()){
             Node cur = nodes.pop();
             System.out.print(cur.data+ " ");
             //check if right child of current node is null
